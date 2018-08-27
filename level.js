@@ -11,8 +11,11 @@ class Level{
     this.padRight = 10;
     this.walls = new Array();
     this.dots = new Array();
+    this.ghosts = new Array();
+    this.pac = new PacMan(420,520);
     this.createWalls();
     this.createDots();
+    this.createGhosts();
   }
 
   createWalls(){
@@ -75,7 +78,7 @@ class Level{
     this.walls.push(new Wall(this.left+this.padLeft,575+this.padTop,90,10));
     this.walls.push(new Wall(this.right-this.padRight-85,575+this.padTop,90,10));
     this.walls.push(new Wall(this.center-85,575+this.padTop,175,25));
-    this.walls.push(new Wall(this.center-85, 660+this.padTop,175,25));
+    this.walls.push(new Wall(this.center-85, 640+this.padTop,175,65));
 
     this.walls.push(new Wall(this.left+this.padLeft,575+this.padTop,10,175));
     this.walls.push(new Wall(this.right-this.padRight-5,575+this.padTop,10,175));
@@ -102,34 +105,72 @@ class Level{
   }
 
   createDots(){
-    var x = 50;
+    var x = 60;
     var y = 90;
-    for(var i = 0; i<9; i++){
-      this.dots.push(new Dot(x,y));
-      x = x+25;
-    }
-    x = 325;
-    for(var i = 0; i<9; i++){
-      this.dots.push(new Dot(x,y));
-      x = x+25;
-    }
-    x = 600;
-    for(var i = 0; i<9; i++){
-      this.dots.push(new Dot(x,y));
-      x = x+25;
-    }
-    x = 50;
-    y = 160;
-    for(var i = 0; i<31; i++){
+    for(var i = 0; i<8; i++){
       this.dots.push(new Dot(x,y));
       x = x+25;
     }
 
-    // this.dots.push(new Dot(55,90));
-    // this.dots.push(new Dot(80,90));
-    // this.dots.push(new Dot(105,90));
-    // this.dots.push(new Dot(130,90));
-    // this.dots.push(new Dot(155,90));
+    x = 335;
+    for(var i = 0; i<9; i++){
+      this.dots.push(new Dot(x,y));
+      x = x+25;
+    }
+    x = 610;
+    for(var i = 0; i<8; i++){
+      this.dots.push(new Dot(x,y));
+      x = x+25;
+    }
+    x = 60;
+    y = 160;
+    for(var i = 0; i<30; i++){
+      this.dots.push(new Dot(x,y));
+      if(i==3){
+        for(var j = 0; j< 19; j++){
+          y+=25.5;
+          this.dots.push(new Dot(x,y))
+        }
+        y = 160;
+      }
+      if(i==26){
+        for(var j =0; j<19;j++){
+          y+=25.5;
+          this.dots.push(new Dot(x,y));
+        }
+        y = 160;
+      }
+      x = x+25;
+    }
+    this.dots.push(new Dot(60,124,18));
+    this.dots.push(new Dot(235,124));
+    this.dots.push(new Dot(335,124));
+    this.dots.push(new Dot(535,124));
+    this.dots.push(new Dot(610,124));
+    this.dots.push(new Dot(785,124,18));
+
+    var x = 60;
+    var y = 670;
+    for(var i = 0; i<30;i++){
+      this.dots.push(new Dot(x,y));
+      x += 25;
+    }
+    x = 60;
+    y = 780;
+
+    this.dots.push(new Dot(x,y-25.5,18));
+    this.dots.push(new Dot(x,y-51));
+    this.dots.push(new Dot(x,y-76.5));
+
+    for(var i = 0; i<30;i++){
+      this.dots.push(new Dot(x,y));
+      x += 25;
+    }
+    this.dots.push(new Dot(x-25,y-25.5,18));
+    this.dots.push(new Dot(x-25,y-51));
+    this.dots.push(new Dot(x-25,y-76.5));
+
+
   }
 
   drawDots(){
@@ -138,9 +179,27 @@ class Level{
     }
   }
 
+  createGhosts(){
+    this.ghosts.push(new Ghost(370,425));
+    this.ghosts.push(new Ghost(400,425));
+    this.ghosts.push(new Ghost(430,425));
+    this.ghosts.push(new Ghost(460,425));
+  }
+
+  drawGhosts(){
+    for(var i = 0;i<this.ghosts.length; i++){
+      this.ghosts[i].drawGhost();
+    }
+  }
+
+
+
+
   levelUpdate(){
     this.drawWalls();
     this.drawDots();
+    this.drawGhosts();
+    this.pac.drawPac();
   }
 }
 
