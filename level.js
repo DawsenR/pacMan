@@ -196,11 +196,17 @@ class Level{
 
 
   levelUpdate(){
-    this.drawWalls();
-    this.drawDots();
-    this.drawGhosts();
-    this.pac.drawPac();
+     this.drawWalls();
+     this.drawDots();
+     this.drawGhosts();
+     this.pac.drawPac();
+     this.pac.detectWalls();
+     if(!this.pac.collision){
+       keyPressed();
+     }
+
   }
+
 }
 
 class Wall{
@@ -235,5 +241,37 @@ class Dot{
     fill(255);
     ellipse(this.x,this.y,this.size,this.size);
   }
+
+}
+
+
+function keyPressed(){
+
+    if(keyCode === UP_ARROW){
+      level.pac.y -=5;
+    }
+
+    if(keyCode === DOWN_ARROW){
+      level.pac.y+=5;
+    }
+    if(keyCode === RIGHT_ARROW){
+      level.pac.x+= 5;
+    }
+    if(keyCode === LEFT_ARROW){
+      level.pac.x-=5;
+    }
+
+  // if(keyCode === UP_ARROW){
+  //   level.pac.y -=5;
+  // }
+  // if(keyCode === DOWN_ARROW){
+  //   level.pac.y+=5;
+  // }
+  // if(keyCode === RIGHT_ARROW){
+  //   level.pac.x+= 5;
+  // }
+  // if(keyCode === LEFT_ARROW){
+  //   level.pac.x-=5;
+  // }
 
 }
